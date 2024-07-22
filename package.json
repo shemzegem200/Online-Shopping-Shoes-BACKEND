@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js", // Adjust this based on your entry point
-    "build": "npm run build", // Adjust this if you have a build process
+    "start": "node server.js",
+    "build": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "node index.js",
     "dev": "nodemon index.js"
