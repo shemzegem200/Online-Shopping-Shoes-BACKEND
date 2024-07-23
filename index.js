@@ -166,8 +166,13 @@ app.get("/api/orders", async(req, res)=>{
 app.post('/api/customers',async(req,res)=>{
     try{
         req.body.phone = parseInt(req.body.phone);
-        const cust=await Customer.create(req.body);
-        res.status(200).json(cust);
+        const arr=await Customer.find({email:req.email});
+        if(!arr){
+            const cust=await Customer.create(req.body);
+            return res.status(200).json(cust);
+        }
+        return res.status(500).json({message:'Email Id already registered'})
+
     }
     catch(error){
             res.status(500).json({message:error.message});
