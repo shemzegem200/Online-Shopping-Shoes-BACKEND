@@ -18,7 +18,7 @@ const secret = "sadv12c1w4cjnqgvui3b4v19px";
 //middleware
 const app = express();
 app.use(express.json());
-app.use(cors({credentials:true, origin:'http://localhost:3000' }));
+app.use(cors(/*{credentials:true}*/));
 app.use(CookieParser());
 
 
@@ -34,19 +34,22 @@ app.get('/test', (req, res)=>{
 });
 
 
+//commenting, as i disabled credentials
 //endpoint to check if the user is logged in
-app.get("/api/profile", (req, res) => {
-    //res.json(req.cookies);
-    const {token} = req.cookies;
-    jwt.verify(token, secret, {}, (err, info) => {
-        if (err) throw err;
-        res.json(info);
-    });
-});
+// app.get("/api/profile", (req, res) => {
+//     //res.json(req.cookies);
+//     const {token} = req.cookies;
+//     jwt.verify(token, secret, {}, (err, info) => {
+//         if (err) throw err;
+//         res.json(info);
+//     });
+// });
+
+
 //endpoint to logout
-app.post("/api/logout", (req, res) => {
-    res.cookie('token', '').json('ok');
-});
+// app.post("/api/logout", (req, res) => {
+//     res.cookie('token', '').json('ok');
+// });
 
 
 //____________________________________________________________________________________________________SHOES CRUD
