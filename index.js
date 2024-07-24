@@ -227,6 +227,39 @@ app.post("/api/customer/getfavorites", async (req, res) => {
     }
 });
 
+app.get("/api/customers/fav",async(req,res)=>{
+    try{
+        let allfav=[];
+
+        const allcust= await Customer.find({});
+
+        allcust.forEach(custom=>{
+            custom.favorites.forEach(favor=>{
+                allfav.push(favor.toString());
+            })
+        })
+        const groupedFavorites = allfav.reduce((acc, product) => {
+            if (!acc[product]) {
+                acc[product] = 0;
+            }
+            acc[product]++;
+            return acc;
+        }, {});
+
+        const groupedFavoritesArray = Object.keys(groupedFavorites).map(product => ({
+            product,
+            count: groupedFavorites[product]
+        }));
+
+        groupedFavoritesArray.sort((a, b) => b.count - a.count);
+        res.status(200).json(groupedFavoritesArray);
+    }
+    catch(error){
+        res.status(500).json({message:error.message});
+    }
+        
+});
+
 //get cart items given an input array of id's
 app.post("/api/customer/getcart", async (req, res) => {
     try {
